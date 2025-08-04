@@ -1,0 +1,85 @@
+.App {
+  text-align: center;
+  margin: 0;
+
+}
+
+body {
+  margin: 0;
+}
+
+.App-logo {
+  height: 20vmin;
+  pointer-events: none;
+  image-rendering: pixelated;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.Cw {
+  height: 20vmin;
+  pointer-events: none;
+  image-rendering: pixelated;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.Ccw {
+  height: 20vmin;
+  pointer-events: none;
+  image-rendering: pixelated;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Cw {
+    animation: App-logo-spin-cw 0.2s linear;
+  }
+  .Ccw {
+    animation: App-logo-spin-ccw 0.2s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-spin-ccw {
+  from {
+    transform: rotate(360deg);
+    
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
