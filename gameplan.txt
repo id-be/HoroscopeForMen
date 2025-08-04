@@ -1,0 +1,8 @@
+how to proceed:
+1) get button hooked up to a function.
+2) generate a seed from datetime
+3) convert the seed into a horoscope
+4)
+
+coursera ai courses
+Georgia tech can take the course -- ai class??
