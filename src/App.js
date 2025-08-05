@@ -1,8 +1,5 @@
 //to get this started, change to directory and run "npm run start"
-//stuff that needs to get done: you need to throw error if there is no defined birthday. DONE
-//when the birthday is set, you can set the man starsign. then when you have that defined and the day
-//you can generate a horoscope.
-//also need to catch: if the horoscope is too far in the future, error.
+
 import React from 'react';
 import {useState} from 'react';
 
@@ -12,8 +9,6 @@ import SentenceData from './HoroscopeSentences.json' with { type: 'json' };
 import StarsignData from './Starsigns.json' with { type: 'json' };
 
 import Genie from './Genie.js';
-
-//import InsanoMusic from "./Sound/InsanoMusic";
 
 import Button from '@mui/material/Button';
 import DateInput from './DateInput.js';
@@ -80,11 +75,9 @@ function App() {
       }
     }
     
-    console.log(month)
+    day = Number(day);
 
-    day = Number(day)
-
-    //dates for starsigns:
+    // starsigns:
     // Steak, Beer, Gun, 
     // Bicep, Bikini Babe, Truck, 
     // Grill, Burger, Money,
@@ -200,11 +193,11 @@ function App() {
           setStarsignText("Whiskey");
           break;
         }
-    }
-      //const date = new Date()
-      //const today = Intl.DateTimeFormat("en-US").format(date)
+      default:
 
-      //console.log(day + "-" + month);
+          break;
+        
+    }
   }
   
   const [date, setDateText] = useState(returnCurrentDate());
@@ -218,7 +211,7 @@ function App() {
     generateHoroscope();
     makeGenieSpin();
   
-  function generateHoroscope() {{
+  function generateHoroscope() {
     const horoscopeString = () => {
 
       if (starsign === undefined) {
@@ -258,7 +251,6 @@ function App() {
       for(let sentencebyid = 0; sentencebyid < rawnumsentences; sentencebyid++) {
         var cursentence = shufflearray[sentencebyid];
         if (typeof(cursentence) === 'string') {
-
           //do nothing.
         } else {
 
@@ -287,9 +279,8 @@ function App() {
 
     setHoroscope(horoscopeString());
   
-  }}
-  
   }
+}
 
   return (
     <div className="App">

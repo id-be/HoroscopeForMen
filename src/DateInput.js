@@ -11,5 +11,5 @@ export default function DateInput( {date, onMyChange} ) {
         value={date}
         max="2099-12-31"
         />
-  )
+  );
 }
