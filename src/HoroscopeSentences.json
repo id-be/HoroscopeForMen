@@ -1,0 +1,205 @@
+[
+
+    [
+        "Your team will $endcondition the $adj game.",
+        {
+            "$endcondition": [
+                "win",
+                "lose",
+                "tie",
+                "forfeit"
+            ],
+            "$adj": [
+                "big",
+                "little league",
+                "minor league"
+            ]
+        }
+    ],
+    [
+        "Your fantasy $sport team will $endcondition $timeframe $timeunit.",
+        {
+            "$sport": [
+                "basketball",
+                "football",
+                "soccer",
+                "baseball"
+            ],
+            "$endcondition": [
+                "win",
+                "lose",
+                "tie",
+                "forfeit"
+            ],
+            "$timeframe":[
+                "next",
+                "this"
+            ],
+            "$timeunit": [
+                "week",
+                "month",
+                "quarter",
+                "season"
+            ]
+        }
+    ],
+    [
+        "$betstate that $security.",
+        {
+            "$betstate": [
+                "Bet big on",
+                "Don't risk it on",
+                "Invest in"
+            ],
+            "$security": [
+                "bluechip stock",
+                "stablecoin",
+                "meme stock",
+                "meme coin",
+                "ETF"
+            ]
+        }
+    ],
+    [
+        "A new $item is in your future.",
+        {
+            "$item": [
+                "toolbelt",
+                "car",
+                "truck",
+                "pair of socks",
+                "pair of underwear"
+            ],
+            "$colloquialism": [
+                "in your future",
+                "in the works",
+                "in the cards"
+            ]
+        }
+    ],
+    [
+        "$reminder to $grab $fooditem at the store.",
+        {
+            "$reminder": [
+                "Make sure",
+                "Don't forget",
+                "Remind yourself"
+            ],
+            "$grab": [
+                "grab",
+                "pick up",
+                "stock up on"
+            ],
+            "$fooditem": [
+                "bacon",
+                "steak",
+                "eggs",
+                "milk",
+                "sausage",
+                "hot dogs",
+                "charcoal",
+                "beer"
+            ]
+        }
+    ],
+    [
+        "A change in $healthissue is $timeframe.",
+        {
+            "$healthissue": [
+                "blood glucose",
+                "cholesterol",
+                "testosterone",
+                "diet"
+            ],
+            "$timeframe": [
+                "coming soon",
+                "in your future",
+                "on the horizon",
+                "within reach",
+                "impending"
+            ]
+
+        }
+    ],
+    [
+        "$person will make $situation.",
+        {
+            "$person": [
+                "A new intern",
+                "A coworker",
+                "Your boss",
+                "An authority figure",
+                "Your significant other"
+            ],
+            "$situation": [
+                "life interesting",
+                "life miserable",
+                "the future uncertain",
+                "life wonderful"
+            ]
+        }
+
+    ],
+    [
+        "Watch out for $workperson.",
+        {
+            "$workperson": [
+                "the boss' secretary",
+                "the boss",
+                "a coworker",
+                "your underling",
+                "a new hire"      
+            ]
+        }
+    ],
+    [
+        "The old ball and chain $dothing.",
+        {
+            "$dothing": [
+                "can still surprise you",
+                "can still learn new tricks",
+                "will be disappointed soon",
+                "will loosen up",
+                "will fly off the handle"
+
+            ]
+
+        }
+    ],
+    
+    "There will be a change in your employment status soon.",
+
+    [
+        "A new pet $pet would make life $condition.",
+        {
+            "$pet": [
+                "iguana",
+                "dog",
+                "cat",
+                "fish",
+                "snake"
+            ],
+            "$condition": [
+                "better",
+                "worse",
+                "more chaotic",
+                "more stable"
+            ]
+        }
+    ],
+    [
+        "Expect a new $thing at work.",
+        {
+            "$thing": [
+                "coffee maker",
+                "contract",
+                "computer",
+                "desk"
+            ]
+        }
+    ],
+
+    "Home repairs are on the horizon.",
+    "Changes beyond your comprehension are coming..."
+
+]
