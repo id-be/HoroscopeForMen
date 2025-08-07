@@ -1,8 +1,8 @@
-export default function DateInput( {date, onMyChange} ) {
+export default function DateInput( {date, onChange} ) {
 
   return(
         <input
-        onChange={onMyChange}
+        onChange={onChange}
         className="DateInput"
         type="date"
         id="start"

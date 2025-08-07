@@ -1,7 +1,5 @@
-//to get this started, change to directory and run "npm run start"
-
-import React from 'react';
-import {useState} from 'react';
+import React, { useCallback } from 'react';
+import { useState } from 'react';
 
 import SeedRandom from 'seedrandom';
 
@@ -16,73 +14,62 @@ import GetCurrentDate from './GetCurrentDate.js';
 
 import './App.css';
 
-function App() {
-  const minsentences = 4;
-  const maxsentences = 8;
-  
-  const [spindir, setSpindir] = useState('App-logo');
+const MIN_SENTENCES = 4;
+const MAX_SENTENCES = 8;
 
-  const makeGenieSpin = () => {
+const DEFAULT_HOROSCOPE = "Your horoscope awaits...";
+const DEFAULT_PREPEND_STARSIGN = "Your starsign is: ";
+const DEFAULT_STARSIGN = "Your Starsign is unclear...";
+
+const getCurrentDate = () => {
+  const curdate = new Date().toISOString().split("T")[0];
+  return (
+    curdate
+  );
+}
+
+function App() {
+
+  const [spindir, setSpindir] = useState('App-logo');
+  const [date, setDateText] = useState(getCurrentDate());
+  const [starsign, setStarsignText] = useState(DEFAULT_STARSIGN);
+  const [horoscope, setHoroscope] = React.useState(DEFAULT_HOROSCOPE);
+
+  const makeGenieSpin = useCallback(() => {
     var tempspindir = Math.random();
-    var mynum = tempspindir
+    var mynum = tempspindir;
     if (tempspindir < 0.5) {
       tempspindir = 'Cw';
     } else {
       tempspindir = 'Ccw';
     }
-    setSpindir(mynum+" "+tempspindir);
-    
-  }
+    setSpindir(mynum + " " + tempspindir);
 
-  function returnCurrentDate() {
-    const curdate = new Date().toISOString().split("T")[0];
-    return(
-      curdate
-    );
-  }
+  }, [setSpindir]);
 
-  const [starsign, setStarsignText] = useState();
-  const onBirthdayDateChange = (event) => {
-    //set the starsign.
+  const onBirthdayDateChange = useCallback((event) => {
+    const base = event.target.value;
+    var [year, month, day] = base.split("-");
+    const datetocheck = date;
+    const base_as_date = new Date(base);
+    const date_to_check_as_date = new Date(datetocheck);
 
-    const base = event.target.value
-    let day = base.split("-")[2];
-    const month = base.split("-")[1];
-    const year = base.split("-")[0];
-    //check if the year is out of range, if so throw an error.
-    //first check the month
-    //then check the days
-    const datetocheck = date
-    const curday  = datetocheck.split("-")[2];
-    const curmonth = datetocheck.split("-")[1];
-    const curyear = datetocheck.split("-")[0];
-
-    if (year > curyear) {
+    if (base_as_date > date_to_check_as_date) {
+      setHoroscope(DEFAULT_HOROSCOPE);
+      setStarsignText(DEFAULT_STARSIGN);
       alert("Birthday out of range!");
-      setStarsignText(undefined);
+      
       return;
-    } else if (year === curyear) {
-      if (month > curmonth) {
-        alert("Birthday out of range!");
-        setStarsignText(undefined);
-        return;
-      } else if (month === curmonth) {
-        if (day > curday) {
-          setStarsignText(undefined);
-          alert("Birthday out of range!");
-          return;
-        }
-      }
     }
-    
-    day = Number(day);
+
+    day = Number.parseInt(day);
 
     // starsigns:
     // Steak, Beer, Gun, 
     // Bicep, Bikini Babe, Truck, 
     // Grill, Burger, Money,
     // Tire Iron, Beard, Whiskey
-    
+
     // Aquarius ♒️: (January 20 – February 18)==steak
     // Pisces ♓️: (February 19 – March 20)==beer
     // Aries ♈️: (March 21 – April 19)==gun
@@ -95,218 +82,128 @@ function App() {
     // Scorpio ♏️: (October 23 – November 21)==tire iron
     // Sagittarius ♐️: (November 22 – December 21)==beard
     // Capricorn ♑️: (December 22 – January 19)==whiskey
-
-    switch (month) {
-      case "01":
-        if (day < 20) {
-          setStarsignText("Whiskey");
-          break;
-        } else {
-          setStarsignText("Steak");
-          break;
-        }
-      case "02":
-        if (day < 19) {
-          setStarsignText("Steak");
-          break;
-        } else {
-          setStarsignText("Beer");
-          break;
-        }
-      case "03":
-        if (day < 21) {
-          setStarsignText("Beer");
-          break;
-        } else {
-          setStarsignText("Gun");
-          break;
-        }
-      case "04":
-        if (day < 20) {
-          setStarsignText("Gun");
-          break;
-        } else {
-          setStarsignText("Bicep");
-          break;
-        }
-      case "05":
-        if (day < 21) {
-          setStarsignText("Bicep");
-          break;
-        } else {
-          setStarsignText("Babe");
-          break;
-        }
-      case "06":
-        if (day < 21) {
-          setStarsignText("Babe");
-          break;
-        } else {
-          setStarsignText("Truck");
-          break;
-        }
-      case "07":
-        if (day < 23) {
-          setStarsignText("Truck");
-          break;
-        } else {
-          setStarsignText("Grill");
-          break;
-        }
-      case "08":
-        if (day < 23) {
-          setStarsignText("Grill");
-          break;
-        } else {
-          setStarsignText("Burger");
-          break;
-        }
-      case "09":
-        if (day < 23) {
-          setStarsignText("Burger");
-          break;
-        } else {
-          setStarsignText("Money");
-          break;
-        }
-      case "10":
-        if (day < 23) {
-          setStarsignText("Money");
-          break;
-        } else {
-          setStarsignText("Tire Iron");
-          break;
-        }
-      case "11":
-        if (day < 22) {
-          setStarsignText("Tire Iron");
-          break;
-        } else {
-          setStarsignText("Beard");
-          break;
-        }
-      case "12":
-        if (day < 22) {
-          setStarsignText("Beard");
-          break;
-        } else {
-          setStarsignText("Whiskey");
-          break;
-        }
-      default:
-
-          break;
-        
+//there's an even better way to do this: you can cast the month to a number and use the index on an array.
+    const starSigns = {
+    "01": (day) => day < 20 ? "Whiskey" : "Steak",
+    "02": (day) => day < 19 ? "Steak" : "Beer",
+    "03": (day) => day < 21 ? "Beer" : "Gun",
+    "04": (day) => day < 20 ? "Gun" : "Bicep",
+    "05": (day) => day < 21 ? "Bicep" : "Babe",
+    "06": (day) => day < 21 ? "Babe" : "Truck",
+    "07": (day) => day < 23 ? "Truck" : "Grill",
+    "08": (day) => day < 23 ? "Grill" : "Burger",
+    "09": (day) => day < 23 ? "Burger" : "Money",
+    "10": (day) => day < 23 ? "Money" : "Tire Iron",
+    "11": (day) => day < 22 ? "Tire Iron" : "Beard",
+    "12": (day) => day < 22 ? "Beard" : "Whisky",
+    };
+    const starSignGetter = starSigns[month];
+    if(starSignGetter) {
+       const starSign = starSignGetter(day);
+       setStarsignText(starSign);
     }
-  }
-  
-  const [date, setDateText] = useState(returnCurrentDate());
-  const onHoroscopeDateChange = (event) => {
-    const date = event.target.value;
-    setDateText(date);
-  }
+    else {
+      console.error("ERROR: month = " + toString(month) + ", day = " + toString(day));
+    }
+  }, [date, setStarsignText]);
 
-  const [horoscope, setHoroscope] = React.useState("Your horoscope awaits...");
-	const myOnClick = () => {
+  const onHoroscopeDateChange = useCallback((event) => {
+    const cur_set_date = event.target.value;
+    setDateText(cur_set_date);
+  }, [setDateText]);
+
+
+  const myOnClick = useCallback(() => {
+    const generateHoroscope = () => {
+        if (starsign === DEFAULT_STARSIGN) {
+          alert("Please input your birthday!");
+          return (
+            DEFAULT_HOROSCOPE
+          );
+        }
+
+        const datestr = date.toString();
+        const rng = SeedRandom(datestr + starsign);
+
+        var paragraph = "";
+
+        const rawnumsentences = Math.trunc(rng() * (MAX_SENTENCES - MIN_SENTENCES) + MIN_SENTENCES);
+
+        var randint = SeedRandom(datestr + starsign);//consider simplifying and just using rng for everything instead of randint.
+
+        //need to make a deep copy in order to make this reproducible--otherwise every time you call, you shuffle a potentially already shuffled array!
+        var shufflearray = SentenceData.slice();
+
+        //standard shuffling algorithm (durstenfield shuffle using the new es6/ecmascript 2015 formatting).
+        //see here: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        
+        for (let i = SentenceData.length - 1; i > 0; i--) {
+          var j = Math.floor(randint() * (i + 1));
+          [shufflearray[i], shufflearray[j]] = [shufflearray[j], shufflearray[i]];
+        }
+
+        for (let sentencebyid = 0; sentencebyid < rawnumsentences; sentencebyid++) {
+          var cursentence = shufflearray[sentencebyid];
+          if (typeof (cursentence) === 'string') {
+            //do nothing.
+          } else {
+
+            var sentencekeys = Object.entries(cursentence[1]);
+            var numvarstoreplace = sentencekeys.length;
+
+            var outsentence = cursentence[0];
+
+            for (let sentencevarbyid = 0; sentencevarbyid < numvarstoreplace; sentencevarbyid++) {
+
+              var sentencevars = sentencekeys[sentencevarbyid][1];
+              var sentencevarmaxnum = sentencevars.length;
+
+              var sentencevarindex = Math.abs(randint.int32()) % sentencevarmaxnum;
+
+              outsentence = outsentence.replaceAll(sentencekeys[sentencevarbyid][0], sentencekeys[sentencevarbyid][1][sentencevarindex]);
+            }
+            cursentence = outsentence;
+          }
+          paragraph = paragraph + cursentence + " ";
+
+        setHoroscope(paragraph);
+
+      }
+
+      
+
+    }
+
     generateHoroscope();
     makeGenieSpin();
-  
-  function generateHoroscope() {
-    const horoscopeString = () => {
 
-      if (starsign === undefined) {
-        alert("Please input your birthday!")
-        return (
-          "Your horoscope awaits..."
-        );
-      }
-
-      const datestr = date.toString();
-      const rng = SeedRandom(datestr+starsign)();
-
-      var rawnumsentences = Math.trunc((rng*10));
-
-      var paragraph = "";
-      
-      if (rawnumsentences < minsentences) {
-        rawnumsentences = minsentences;
-      }
-      else if (rawnumsentences > maxsentences) {
-        rawnumsentences = maxsentences;
-      }
-      
-      var randint = SeedRandom(datestr+starsign);//consider simplifying and just using rng for everything instead of randint.
-      var sentencelistsize = SentenceData.length;
-      
-      //need to make a deep copy in order to make this reproducible--otherwise every time you call, you shuffle a potentially already shuffled array!
-      var shufflearray = SentenceData.slice();
-
-      //standard shuffling algorithm (durstenfield shuffle using the new es6/ecmascript 2015 formatting).
-      //see here: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-      for (let i = sentencelistsize - 1; i > 0; i--) {
-        var j = Math.floor(randint() * (i + 1));
-        [shufflearray[i], shufflearray[j]] = [shufflearray[j], shufflearray[i]];
-      }
-
-      for(let sentencebyid = 0; sentencebyid < rawnumsentences; sentencebyid++) {
-        var cursentence = shufflearray[sentencebyid];
-        if (typeof(cursentence) === 'string') {
-          //do nothing.
-        } else {
-
-          var sentencekeys = Object.entries(cursentence[1]);
-          var numvarstoreplace = sentencekeys.length;
-
-          var outsentence = cursentence[0];
-
-          for(let sentencevarbyid = 0; sentencevarbyid < numvarstoreplace; sentencevarbyid++) {
-            
-            var sentencevars = sentencekeys[sentencevarbyid][1];
-            var sentencevarmaxnum = sentencevars.length;
-
-            var sentencevarindex=Math.abs(randint.int32()) % sentencevarmaxnum;
-
-            outsentence = outsentence.replaceAll(sentencekeys[sentencevarbyid][0], sentencekeys[sentencevarbyid][1][sentencevarindex]);
-          }
-          cursentence = outsentence;
-        }
-        paragraph = paragraph + cursentence + " ";
-      }
-
-    return(paragraph);
-    
-    }
-
-    setHoroscope(horoscopeString());
-  
-  }
-}
+  }, [date, makeGenieSpin, starsign]);
 
   return (
     <div className="App">
       <header className="App-header"><i><strong>FINALLY!</strong></i> A HOROSCOPE... <i>FOR MEN!</i>
-        <Genie key={spindir} spindir={spindir}/>
-        
-        <p style={{zIndex:3, color:'red'}}>
-        {horoscope}
+        <Genie key={spindir} spindir={spindir} />
+
+        <p style={{ zIndex: 3, color: 'red' }}>
+          {horoscope}
         </p>
 
         <p>
-        Your starsign is: {starsign}
+          {starsign}
         </p>
         <p>{StarsignData[starsign]}</p>
 
         <p>
-        (The current date is:&nbsp;<GetCurrentDate/>)
+          (The current date is:&nbsp;<GetCurrentDate />)
         </p>
-        
+
         <Button variant="contained" onClick={myOnClick}>
-        Submit... to&nbsp;<i>men</i>...
+          Submit... to&nbsp;<i>men</i>...
         </Button>
-      <small>Your Birthday</small>
-      <DateInput onMyChange={onBirthdayDateChange}/>
-      <small>Horoscope Date</small>
-      <DateInput onMyChange={onHoroscopeDateChange} date={date}/>
+        <small>Your Birthday</small>
+        <DateInput onChange={onBirthdayDateChange} />
+        <small>Horoscope Date</small>
+        <DateInput onChange={onHoroscopeDateChange} date={date} />
       </header>
     </div>
   );
