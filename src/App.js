@@ -95,7 +95,7 @@ function App() {
     "09": (day) => day < 23 ? "Burger" : "Money",
     "10": (day) => day < 23 ? "Money" : "Tire Iron",
     "11": (day) => day < 22 ? "Tire Iron" : "Beard",
-    "12": (day) => day < 22 ? "Beard" : "Whisky",
+    "12": (day) => day < 22 ? "Beard" : "Whiskey",
     };
     const starSignGetter = starSigns[month];
     if(starSignGetter) {
