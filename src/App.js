@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 import DateInput from './DateInput.js';
 import GetCurrentDate from './GetCurrentDate.js';
 
+import DEFAULT_BACKGROUND from "./Images/SignBlank.jpg";
+
 import './App.css';
 
 const MIN_SENTENCES = 4;
@@ -19,7 +21,7 @@ const MAX_SENTENCES = 8;
 
 const DEFAULT_HOROSCOPE = "Your horoscope awaits...";
 const DEFAULT_PREPEND_STARSIGN = "Your starsign is: ";
-const DEFAULT_STARSIGN = "Your Starsign is unclear...";
+const DEFAULT_STARSIGN = "unclear...";
 
 const getCurrentDate = () => {
   const curdate = new Date().toISOString().split("T")[0];
@@ -34,6 +36,9 @@ function App() {
   const [date, setDateText] = useState(getCurrentDate());
   const [starsign, setStarsignText] = useState(DEFAULT_STARSIGN);
   const [horoscope, setHoroscope] = React.useState(DEFAULT_HOROSCOPE);
+  const [background, setBackground] = React.useState(DEFAULT_BACKGROUND);
+
+  console.log(background)
 
   const makeGenieSpin = useCallback(() => {
     var tempspindir = Math.random();
@@ -53,6 +58,7 @@ function App() {
     const datetocheck = date;
     const base_as_date = new Date(base);
     const date_to_check_as_date = new Date(datetocheck);
+    
 
     if (base_as_date > date_to_check_as_date) {
       setHoroscope(DEFAULT_HOROSCOPE);
@@ -61,7 +67,7 @@ function App() {
       
       return;
     }
-
+    
     day = Number.parseInt(day);
 
     // starsigns:
@@ -101,6 +107,8 @@ function App() {
     if(starSignGetter) {
        const starSign = starSignGetter(day);
        setStarsignText(starSign);
+       changeBackground(starSign);
+       
     }
     else {
       console.error("ERROR: month = " + toString(month) + ", day = " + toString(day));
@@ -179,7 +187,17 @@ function App() {
 
   }, [date, makeGenieSpin, starsign]);
 
+  const changeBackground = useCallback((cursign) => {
+    const my_sent = "Sign.jpg";
+    const out_name = "HoroscopeForMen/Images/"+cursign+my_sent;
+    
+    setBackground(out_name);
+    console.log(out_name);
+  }, [starsign] )
+
   return (
+  <body style={{backgroundImage: "url(" + background + ")"}}>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div className="App">
       <header className="App-header"><i><strong>FINALLY!</strong></i> A HOROSCOPE... <i>FOR MEN!</i>
         <Genie key={spindir} spindir={spindir} />
@@ -189,7 +207,7 @@ function App() {
         </p>
 
         <p>
-          {starsign}
+          {DEFAULT_PREPEND_STARSIGN}{starsign}
         </p>
         <p>{StarsignData[starsign]}</p>
 
@@ -206,6 +224,7 @@ function App() {
         <DateInput onChange={onHoroscopeDateChange} date={date} />
       </header>
     </div>
+  </body>
   );
 }
 
