@@ -1,239 +1,180 @@
-import * as React from 'react';
+import React, { useCallback } from 'react';
+import { useState } from 'react';
 
-// import React, { useCallback } from 'react';
-// import { useState } from 'react';
+import SeedRandom from 'seedrandom';
 
-// import SeedRandom from 'seedrandom';
+import SentenceData from './HoroscopeSentences.json' with { type: 'json' };
+import StarsignData from './Starsigns.json' with { type: 'json' };
 
-// import SentenceData from './HoroscopeSentences.json' with { type: 'json' };
-// import StarsignData from './Starsigns.json' with { type: 'json' };
+import Genie from './Genie.js';
 
-// import Genie from './Genie.js';
+import GetCurrentDate from './GetCurrentDate.js';
 
-// import Button from '@mui/material/Button';
+import DEFAULT_BACKGROUND from "./Images/SignBlank.jpg";
 
-// import { ThemeProvider, createTheme } from "@mui/material/styles";
-
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+import './App.css';
 
-// import DateInput from './DateInput.js';
-// import GetCurrentDate from './GetCurrentDate.js';
+const MIN_SENTENCES = 4;
+const MAX_SENTENCES = 8;
 
-// import DEFAULT_BACKGROUND from "./Images/SignBlank.jpg";
+const DEFAULT_HOROSCOPE = "Your horoscope awaits...";
+const DEFAULT_PREPEND_STARSIGN = "Your starsign is: ";
+const DEFAULT_STARSIGN = "unclear...";
 
-// import './App.css';
-
-
-// const MIN_SENTENCES = 4;
-// const MAX_SENTENCES = 8;
-
-// const DEFAULT_HOROSCOPE = "Your horoscope awaits...";
-// const DEFAULT_PREPEND_STARSIGN = "Your starsign is: ";
-// const DEFAULT_STARSIGN = "unclear...";
-
-// const theme = createTheme({
-//   background: {
-//     primary: {
-//       main: '#ffffffff'
-//     }
-//   },
-
-//   palette: {
-//     primary: {
-//       main: '#ffffffff',
-//     },
-//     secondary: {
-//       main: '#ffffffff',
-//     },
-//   },
-// });
-
-// const getCurrentDate = () => {
-//   const curdate = new Date().toISOString().split("T")[0];
-//   return (
-//     curdate
-//   );
-// }
+const getCurrentDate = () => {
+  const curdate = new Date().toISOString().split("T")[0];
+  return (
+    curdate
+  );
+}
 
 function App() {
 
-//   const [spindir, setSpindir] = useState('App-logo');
-//   const [date, setDateText] = useState(getCurrentDate());
-//   const [starsign, setStarsignText] = useState(DEFAULT_STARSIGN);
-//   const [horoscope, setHoroscope] = React.useState(DEFAULT_HOROSCOPE);
-//   const [background, setBackground] = React.useState(DEFAULT_BACKGROUND);
+  const [spindir, setSpindir] = useState('App-logo');
+  const [starsign, setStarsignText] = useState(DEFAULT_STARSIGN);
+  const [horoscope, setHoroscope] = React.useState(DEFAULT_HOROSCOPE);
+  const [background, setBackground] = React.useState(DEFAULT_BACKGROUND);
 
-//   console.log(background)
+  const makeGenieSpin = useCallback(() => {
+    var tempspindir = Math.random();
+    var mynum = tempspindir;
+    if (tempspindir < 0.5) {
+      tempspindir = 'Cw';
+    } else {
+      tempspindir = 'Ccw';
+    }
+    setSpindir(mynum + " " + tempspindir);
 
-//   const makeGenieSpin = useCallback(() => {
-//     var tempspindir = Math.random();
-//     var mynum = tempspindir;
-//     if (tempspindir < 0.5) {
-//       tempspindir = 'Cw';
-//     } else {
-//       tempspindir = 'Ccw';
-//     }
-//     setSpindir(mynum + " " + tempspindir);
+  }, [setSpindir]);
 
-//   }, [setSpindir]);
+  const changeBackground = useCallback((cursign) => {
+    const my_sent = "Sign.jpg";
+    const out_name = "HoroscopeForMen/Images/"+cursign+my_sent;
+  
+    setBackground(out_name);
+  }, )
 
-//   const onBirthdayDateChange = useCallback((event) => {
-//     const base = event.target.value;
-//     var [year, month, day] = base.split("-");
-//     const datetocheck = date;
-//     const base_as_date = new Date(base);
-//     const date_to_check_as_date = new Date(datetocheck);
-    
+  const myOnClick = useCallback((cursign) => {
+    const generateHoroscope = () => {
 
-//     if (base_as_date > date_to_check_as_date) {
-//       setHoroscope(DEFAULT_HOROSCOPE);
-//       setStarsignText(DEFAULT_STARSIGN);
-//       alert("Birthday out of range!");
-      
-//       return;
-//     }
-    
-//     day = Number.parseInt(day);
+        const datestr = getCurrentDate().toString();
 
-//     // starsigns:
-//     // Steak, Beer, Gun, 
-//     // Bicep, Bikini Babe, Truck, 
-//     // Grill, Burger, Money,
-//     // Tire Iron, Beard, Whiskey
+        const rng = SeedRandom(datestr + cursign);
 
-//     // Aquarius ♒️: (January 20 – February 18)==steak
-//     // Pisces ♓️: (February 19 – March 20)==beer
-//     // Aries ♈️: (March 21 – April 19)==gun
-//     // Taurus ♉️: (April 20 – May 20)==bicep
-//     // Gemini ♊️: (May 21 – June 20)==bikini babe
-//     // Cancer ♋️: (June 21 – July 22)==truck
-//     // Leo ♌️: (July 23 – August 22)==grill
-//     // Virgo ♍️: (August 23 – September 22)==burger
-//     // Libra ♎️: (September 23 – October 22)==money
-//     // Scorpio ♏️: (October 23 – November 21)==tire iron
-//     // Sagittarius ♐️: (November 22 – December 21)==beard
-//     // Capricorn ♑️: (December 22 – January 19)==whiskey
-// //there's an even better way to do this: you can cast the month to a number and use the index on an array.
-//     const starSigns = {
-//     "01": (day) => day < 20 ? "Whiskey" : "Steak",
-//     "02": (day) => day < 19 ? "Steak" : "Beer",
-//     "03": (day) => day < 21 ? "Beer" : "Gun",
-//     "04": (day) => day < 20 ? "Gun" : "Bicep",
-//     "05": (day) => day < 21 ? "Bicep" : "Babe",
-//     "06": (day) => day < 21 ? "Babe" : "Truck",
-//     "07": (day) => day < 23 ? "Truck" : "Grill",
-//     "08": (day) => day < 23 ? "Grill" : "Burger",
-//     "09": (day) => day < 23 ? "Burger" : "Money",
-//     "10": (day) => day < 23 ? "Money" : "Tire Iron",
-//     "11": (day) => day < 22 ? "Tire Iron" : "Beard",
-//     "12": (day) => day < 22 ? "Beard" : "Whiskey",
-//     };
-//     const starSignGetter = starSigns[month];
-//     if(starSignGetter) {
-//        const starSign = starSignGetter(day);
-//        setStarsignText(starSign);
-//        changeBackground(starSign);
-       
-//     }
-//     else {
-//       console.error("ERROR: month = " + toString(month) + ", day = " + toString(day));
-//     }
-//   }, [date, setStarsignText]);
+        var paragraph = "";
 
-//   const onHoroscopeDateChange = useCallback((event) => {
-//     const cur_set_date = event.target.value;
-//     setDateText(cur_set_date);
-//   }, [setDateText]);
+        const rawnumsentences = Math.trunc(rng() * (MAX_SENTENCES - MIN_SENTENCES) + MIN_SENTENCES);
 
+        var randint = SeedRandom(datestr + cursign);
 
-//   const myOnClick = useCallback(() => {
-//     const generateHoroscope = () => {
-//         if (starsign === DEFAULT_STARSIGN) {
-//           alert("Please input your birthday!");
-//           return (
-//             DEFAULT_HOROSCOPE
-//           );
-//         }
+        var shufflearray = SentenceData.slice();
 
-//         const datestr = date.toString();
-//         const rng = SeedRandom(datestr + starsign);
-
-//         var paragraph = "";
-
-//         const rawnumsentences = Math.trunc(rng() * (MAX_SENTENCES - MIN_SENTENCES) + MIN_SENTENCES);
-
-//         var randint = SeedRandom(datestr + starsign);//consider simplifying and just using rng for everything instead of randint.
-
-//         //need to make a deep copy in order to make this reproducible--otherwise every time you call, you shuffle a potentially already shuffled array!
-//         var shufflearray = SentenceData.slice();
-
-//         //standard shuffling algorithm (durstenfield shuffle using the new es6/ecmascript 2015 formatting).
-//         //see here: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        //standard shuffling algorithm (durstenfield shuffle using the new es6/ecmascript 2015 formatting).
+        //see here: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
         
-//         for (let i = SentenceData.length - 1; i > 0; i--) {
-//           var j = Math.floor(randint() * (i + 1));
-//           [shufflearray[i], shufflearray[j]] = [shufflearray[j], shufflearray[i]];
-//         }
+        for (let i = SentenceData.length - 1; i > 0; i--) {
+          var j = Math.floor(randint() * (i + 1));
+          [shufflearray[i], shufflearray[j]] = [shufflearray[j], shufflearray[i]];
+        }
 
-//         for (let sentencebyid = 0; sentencebyid < rawnumsentences; sentencebyid++) {
-//           var cursentence = shufflearray[sentencebyid];
-//           if (typeof (cursentence) === 'string') {
-//             //do nothing.
-//           } else {
+        for (let sentencebyid = 0; sentencebyid < rawnumsentences; sentencebyid++) {
+          var cursentence = shufflearray[sentencebyid];
+          if (typeof (cursentence) === 'string') {
+            //do nothing.
+          } else {
 
-//             var sentencekeys = Object.entries(cursentence[1]);
-//             var numvarstoreplace = sentencekeys.length;
+            var sentencekeys = Object.entries(cursentence[1]);
+            var numvarstoreplace = sentencekeys.length;
 
-//             var outsentence = cursentence[0];
+            var outsentence = cursentence[0];
 
-//             for (let sentencevarbyid = 0; sentencevarbyid < numvarstoreplace; sentencevarbyid++) {
+            for (let sentencevarbyid = 0; sentencevarbyid < numvarstoreplace; sentencevarbyid++) {
 
-//               var sentencevars = sentencekeys[sentencevarbyid][1];
-//               var sentencevarmaxnum = sentencevars.length;
+              var sentencevars = sentencekeys[sentencevarbyid][1];
+              var sentencevarmaxnum = sentencevars.length;
 
-//               var sentencevarindex = Math.abs(randint.int32()) % sentencevarmaxnum;
+              var sentencevarindex = Math.abs(randint.int32()) % sentencevarmaxnum;
 
-//               outsentence = outsentence.replaceAll(sentencekeys[sentencevarbyid][0], sentencekeys[sentencevarbyid][1][sentencevarindex]);
-//             }
-//             cursentence = outsentence;
-//           }
-//           paragraph = paragraph + cursentence + " ";
+              outsentence = outsentence.replaceAll(sentencekeys[sentencevarbyid][0], sentencekeys[sentencevarbyid][1][sentencevarindex]);
+            }
+            cursentence = outsentence;
+          }
+          paragraph = paragraph + cursentence + " ";
 
-//         setHoroscope(paragraph);
-//       }
-//     }
+        setHoroscope(paragraph);
+      }
+    }
 
-//     generateHoroscope();
-//     makeGenieSpin();
+    generateHoroscope();
+    makeGenieSpin();
 
-//   }, [date, makeGenieSpin, starsign]);
+  }, [makeGenieSpin]);
 
-//   const changeBackground = useCallback((cursign) => {
-//     const my_sent = "Sign.jpg";
-//     const out_name = "HoroscopeForMen/Images/"+cursign+my_sent;
-    
-//     setBackground(out_name);
-//     console.log(out_name);
-//   }, [starsign] );
+
+  const onBirthdayDateChange = useCallback((value) => {
+    const month = value.format('MM');
+    var day = value.format('DD');
+
+    day = parseInt(day);
+
+    // starsigns:
+    // Steak, Beer, Gun, 
+    // Bicep, Bikini Babe, Truck, 
+    // Grill, Burger, Money,
+    // Tire Iron, Beard, Whiskey
+
+    // Aquarius ♒️: (January 20 – February 18)==steak
+    // Pisces ♓️: (February 19 – March 20)==beer
+    // Aries ♈️: (March 21 – April 19)==gun
+    // Taurus ♉️: (April 20 – May 20)==bicep
+    // Gemini ♊️: (May 21 – June 20)==bikini babe
+    // Cancer ♋️: (June 21 – July 22)==truck
+    // Leo ♌️: (July 23 – August 22)==grill
+    // Virgo ♍️: (August 23 – September 22)==burger
+    // Libra ♎️: (September 23 – October 22)==money
+    // Scorpio ♏️: (October 23 – November 21)==tire iron
+    // Sagittarius ♐️: (November 22 – December 21)==beard
+    // Capricorn ♑️: (December 22 – January 19)==whiskey
+//there's an even better way to do this: you can cast the month to a number and use the index on an array.
+    const starSigns = {
+    "01": (day) => day < 20 ? "Whiskey" : "Steak",
+    "02": (day) => day < 19 ? "Steak" : "Beer",
+    "03": (day) => day < 21 ? "Beer" : "Gun",
+    "04": (day) => day < 20 ? "Gun" : "Bicep",
+    "05": (day) => day < 21 ? "Bicep" : "Babe",
+    "06": (day) => day < 21 ? "Babe" : "Truck",
+    "07": (day) => day < 23 ? "Truck" : "Grill",
+    "08": (day) => day < 23 ? "Grill" : "Burger",
+    "09": (day) => day < 23 ? "Burger" : "Money",
+    "10": (day) => day < 23 ? "Money" : "Tire Iron",
+    "11": (day) => day < 22 ? "Tire Iron" : "Beard",
+    "12": (day) => day < 22 ? "Beard" : "Whiskey",
+    };
+    const starSignGetter = starSigns[month];
+    if(starSignGetter) {
+       const starSign = starSignGetter(day);
+       setStarsignText(starSign);
+       changeBackground(starSign);
+       myOnClick(starSign);
+    }
+    else {
+      console.error("ERROR: month = " + toString(month) + ", day = " + toString(day));
+    }
+  }, [setStarsignText, changeBackground, myOnClick]);
 
   return (
-
-        
-  <body>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker label="Basic date picker" />
-    </LocalizationProvider>
-    {/* <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div className="Body" style={{backgroundImage: "url(" + background + ")"}}>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div className="App">
-      <header className="App-header"><i><strong>FINALLY!</strong></i> A HOROSCOPE... <i>FOR MEN!</i> */}
-        {/* <Genie key={spindir} spindir={spindir} /> */}
+      <header className="App-header"><i><strong>FINALLY!</strong></i> A HOROSCOPE... <i>FOR MEN!</i>
+        <Genie key={spindir} spindir={spindir} />
 
-        {/* <p style={{ zIndex: 3, color: 'red' }}>
+        <p style={{ zIndex: 3}}>
           {horoscope}
         </p>
 
@@ -244,28 +185,22 @@ function App() {
 
         <p>
           (The current date is:&nbsp;<GetCurrentDate />)
-        </p> */}
-
-
-
-
-
-        {/* <Button variant="contained" onClick={myOnClick}>
-          Submit... to&nbsp;<i>men</i>...
-        </Button>
-        <small>Your Birthday</small>
-
-        <DateInput onChange={onBirthdayDateChange} />
+        </p>
         
-        <small>Horoscope Date</small>
-        <DateInput onChange={onHoroscopeDateChange} date={date} /> */}
-      {/* </header>
-    </div> */}
-  </body>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            slotProps={{
+              calendarHeader: {
+                format: 'MMMM'
+              },}}
+          defaultValue={dayjs('2000-01-01')}
+          openTo='month' format = "M/D" color='primary' label="Please Enter Your Birthday." views={['month', 'day']} onAccept={(value) => onBirthdayDateChange(value)} />
+        </LocalizationProvider>
+
+      </header>
+    </div>
+  </div>
   );
 }
 
 export default App;
-
-
-
