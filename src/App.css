@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  text-shadow: -2px -2px 0 #000000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
   margin: 0;
 
 }
@@ -7,6 +8,12 @@
 .Body {
   background-size: 100% 100%;
   margin: 0;
+}
+
+p {
+  z-index: 1;
+  padding-left: 5dvb;
+  padding-right: 5dvb
 }
 
 .App-logo {
@@ -21,6 +28,7 @@
 }
 
 .Cw {
+  z-index: 1;
   height: 20vmin;
   pointer-events: none;
   image-rendering: pixelated;
@@ -32,6 +40,7 @@
 }
 
 .Ccw {
+  z-index: 1;
   height: 20vmin;
   pointer-events: none;
   image-rendering: pixelated;
@@ -51,20 +60,6 @@
   }
 }
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin-cw {
   from {
     transform: rotate(0deg);
@@ -82,4 +77,58 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* .StarSignImage {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+} */
+
+.UnderlayStarsignImage {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  height: 50dvb;
+  opacity: 50%;
+  position: fixed;
+  bottom: 5dvb;
+
+  clip-path: ellipse(50% 50% at 50% 50%);
+
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.OverlayStarsignImage {
+  height: 50dvb;
+  opacity: 80%;
+  position: fixed;
+  bottom: 5dvb;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }

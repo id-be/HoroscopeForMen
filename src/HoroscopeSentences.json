@@ -65,8 +65,7 @@
         {
             "$item": [
                 "toolbelt",
-                "car",
-                "truck",
+                "vehicle",
                 "pair of socks",
                 "pair of underwear"
             ],
@@ -95,10 +94,13 @@
                 "steak",
                 "eggs",
                 "milk",
-                "sausage",
+                "sausages",
                 "hot dogs",
                 "charcoal",
-                "beer"
+                "beer",
+                "ammo",
+                "liquor",
+                "light bulbs"
             ]
         }
     ],
@@ -173,33 +175,174 @@
         "A new pet $pet would make life $condition.",
         {
             "$pet": [
-                "iguana",
+                "lizard",
                 "dog",
                 "cat",
                 "fish",
-                "snake"
+                "snake",
+                "horse",
+                "goat"
             ],
             "$condition": [
                 "better",
                 "worse",
                 "more chaotic",
-                "more stable"
+                "more stable",
+                "more interesting"
             ]
         }
     ],
     [
-        "Expect a new $thing at work.",
+        "$expect a new $thing at work.",
         {
+            "$expect":[
+                "Expect",
+                "Look forward to",
+                "Get ready for"
+            ],
             "$thing": [
                 "coffee maker",
                 "contract",
                 "computer",
-                "desk"
+                "desk",
+                "chair"
             ]
         }
     ],
+    [
+        "Be wary of $cookstate $fooditem.",
+        {
+            "$cookstate": [
+                "undercooked",
+                "overcooked"
+            ],
+            "$fooditem": [
+                "pork",
+                "beef",
+                "poultry",
+                "noodles",
+                "rice",
+                "bacon"
+            ]
+        }
+    ],
+    [
+        "You will soon be called upon to $destroy $insect.",
+        {
+            "$destroy": [
+                "remove",
+                "kill",
+                "destroy"
+            ],
+            "$insect": [
+                "a roach",
+                "a beehive",
+                "a hornet's nest",
+                "a spider",
+                "an ant colony",
+                "daddy long legs",
+                "moth"
+            ]
+        }
 
-    "Home repairs are on the horizon.",
-    "Changes beyond your comprehension are coming..."
+    ],
+    [
+        "$thing repairs are on the horizon.",
+        {
+            "$thing": [
+                "Home",
+                "Vehicle",
+                "Lawnmower",
+                "Plumbing",
+                "Roof",
+                "Wall"
+            ]
+        }
+    ],
+    [
+        "$enjoy your time with $boys.",
+        {
+            "$enjoy": [
+                "Savor",
+                "Enjoy",
+                "Cherish",
+                "Relish"
+            ],
+            "$boys": [
+                "the fellas",
+                "the boys",
+                "friends"
+            ]
 
+        }
+    ],
+    [
+        "$expect a new $pr at the gym.",
+        {
+            "$expect": [
+                "Expect",
+                "Look forward to",
+                "Get ready for"
+            ],
+            "$pr": [
+                "max",
+                "PR",
+                "machine",
+                ""
+            ]
+        }
+    ],
+    [
+        "$skip $game next time.",
+        {
+            "$skip": [
+                "Skip out on",
+                "Don't play",
+                "Make sure to bet big on",
+                "Don't bet big on",
+                "Avoid playing",
+                "Get in on"
+            ],
+            "$game": [
+                "five-card stud",
+                "seven-card stud",
+                "Texas hold 'em",
+                "gin rummy",
+                "blackjack",
+                "craps",
+                "dice",
+                "dominoes",
+                "roulette"
+            ]
+        }
+    ],
+    [
+        "Changes beyond your $comprehension are $coming...",
+        {
+            "$comprehension": [
+                "comprehension",
+                "wildest dreams"
+            ],
+            "$coming": [
+                "coming",
+                "coming soon",
+                "coming sooner than you think",
+                "on the way",
+                "in the works"
+            ]
+        }
+    ],
+    [
+        "$plan a $hunting trip.",
+        {
+            "$plan": [
+                "You are overdue for",
+                "You should plan"
+            ],
+            "$hunting": [
+                "hunting",
+                "fishing"
+            ]
+        }
+    ]
 ]

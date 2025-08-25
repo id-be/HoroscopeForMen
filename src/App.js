@@ -10,7 +10,7 @@ import Genie from './Genie.js';
 
 import GetCurrentDate from './GetCurrentDate.js';
 
-import DEFAULT_BACKGROUND from "./Images/SignBlank.jpg";
+import DEFAULT_BACKGROUND from "./Images/SignBlank.webp";
 
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -38,7 +38,8 @@ function App() {
   const [spindir, setSpindir] = useState('App-logo');
   const [starsign, setStarsignText] = useState(DEFAULT_STARSIGN);
   const [horoscope, setHoroscope] = React.useState(DEFAULT_HOROSCOPE);
-  const [background, setBackground] = React.useState(DEFAULT_BACKGROUND);
+  const [starsignpic, setStarsignPic] = React.useState(null);
+  const [starsignoverlaypic, setStarsignOverlayPic] = React.useState(null);
 
   const makeGenieSpin = useCallback(() => {
     var tempspindir = Math.random();
@@ -48,15 +49,16 @@ function App() {
     } else {
       tempspindir = 'Ccw';
     }
-    setSpindir(mynum + " " + tempspindir);
+    setSpindir(tempspindir);
 
   }, [setSpindir]);
 
-  const changeBackground = useCallback((cursign) => {
-    const my_sent = "Sign.jpg";
-    const out_name = "HoroscopeForMen/Images/"+cursign+my_sent;
-  
-    setBackground(out_name);
+  const changeStarsignImage = useCallback((cursign) => {
+    const local_path = "HoroscopeForMen/Images/"
+    const out_name = local_path+cursign+"Sign.webp";
+    const out_overlay_name = local_path+cursign+"SignStars.webp"
+    setStarsignPic(out_name);
+    setStarsignOverlayPic(out_overlay_name);
   }, )
 
   const myOnClick = useCallback((cursign) => {
@@ -113,8 +115,7 @@ function App() {
     generateHoroscope();
     makeGenieSpin();
 
-  }, [makeGenieSpin]);
-
+  });
 
   const onBirthdayDateChange = useCallback((value) => {
     const month = value.format('MM');
@@ -159,22 +160,29 @@ function App() {
     if(starSignGetter) {
        const starSign = starSignGetter(day);
        setStarsignText(starSign);
-       changeBackground(starSign);
+       changeStarsignImage(starSign);
        myOnClick(starSign);
     }
     else {
       console.error("ERROR: month = " + toString(month) + ", day = " + toString(day));
     }
-  }, [setStarsignText, changeBackground, myOnClick]);
+  }, [setStarsignText, changeStarsignImage, myOnClick]);
 
   return (
-  <div className="Body" style={{backgroundImage: "url(" + background + ")"}}>
+  <div className="Body" style={{backgroundImage: "url(" + DEFAULT_BACKGROUND + ")"}}>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div className="App">
       <header className="App-header"><i><strong>FINALLY!</strong></i> A HOROSCOPE... <i>FOR MEN!</i>
-        <Genie key={spindir} spindir={spindir} />
+        <Genie key={spindir} spindir={spindir}/>
 
-        <p style={{ zIndex: 3}}>
+        <img alt='Your starsign: ' className="UnderlayStarsignImage" src={starsignpic}></img>
+        <img alt ='Starsign blurred' className="OverlayStarsignImage" src={starsignoverlaypic}></img>
+
+        <p>
+          (The current date is:&nbsp;<GetCurrentDate />)
+        </p>
+
+        <p>
           {horoscope}
         </p>
 
@@ -182,10 +190,6 @@ function App() {
           {DEFAULT_PREPEND_STARSIGN}{starsign}
         </p>
         <p>{StarsignData[starsign]}</p>
-
-        <p>
-          (The current date is:&nbsp;<GetCurrentDate />)
-        </p>
         
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
