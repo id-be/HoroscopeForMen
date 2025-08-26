@@ -175,21 +175,27 @@ function App() {
       <header className="App-header"><i><strong>FINALLY!</strong></i> A HOROSCOPE... <i>FOR MEN!</i>
         <Genie key={spindir} spindir={spindir}/>
 
-        <img alt='Your starsign: ' className="UnderlayStarsignImage" src={starsignpic}></img>
-        <img alt ='Starsign blurred' className="OverlayStarsignImage" src={starsignoverlaypic}></img>
+        <img alt={starsign} className="UnderlayStarsignImage StarsignImage Unselectable" src={starsignpic}></img>
+        <img alt ={starsignoverlaypic} className="StarsignImage Unselectable" src={starsignoverlaypic}></img>
 
         <p>
+          <span className="BGSpan">
           (The current date is:&nbsp;<GetCurrentDate />)
+          </span>
         </p>
 
         <p>
+          <span className="BGSpan">
           {horoscope}
+          </span>
         </p>
 
         <p>
+          <span className="BGSpan">
           {DEFAULT_PREPEND_STARSIGN}{starsign}
+          </span>
         </p>
-        <p>{StarsignData[starsign]}</p>
+        <p><span className="BGSpan">{StarsignData[starsign]}</span></p>
         
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
@@ -197,7 +203,7 @@ function App() {
               calendarHeader: {
                 format: 'MMMM'
               },}}
-          defaultValue={dayjs('2000-01-01')}
+          defaultValue={dayjs('2000-01-01')}//this causes a new issue: you can't select 1/1. if you remove it, you get expected behavior... but if you can't set a year, the issue of not ensuring feb 29 persists. conundrum.
           openTo='month' format = "M/D" color='primary' label="Please Enter Your Birthday." views={['month', 'day']} onAccept={(value) => onBirthdayDateChange(value)} />
         </LocalizationProvider>
 

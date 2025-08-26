@@ -10,45 +10,30 @@
   margin: 0;
 }
 
+.bgspan {
+  background-color: #00000045;
+  outline: auto;
+  outline-style: dotted;
+  outline-color: rgba(255, 255, 255, 0.21);
+}
+
 p {
   z-index: 1;
   padding-left: 5dvb;
-  padding-right: 5dvb
+  padding-right: 5dvb;
 }
 
 .App-logo {
+  z-index: 1;
   height: 20vmin;
   pointer-events: none;
   image-rendering: pixelated;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 .Cw {
-  z-index: 1;
-  height: 20vmin;
-  pointer-events: none;
-  image-rendering: pixelated;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 .Ccw {
-  z-index: 1;
-  height: 20vmin;
-  pointer-events: none;
-  image-rendering: pixelated;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -89,23 +74,7 @@ p {
   color: white;
 }
 
-/* .StarSignImage {
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-
-} */
-
 .UnderlayStarsignImage {
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   height: 50dvb;
   opacity: 50%;
   position: fixed;
@@ -120,11 +89,14 @@ p {
   filter: blur(5px);
 }
 
-.OverlayStarsignImage {
+.StarsignImage {
   height: 50dvb;
   opacity: 80%;
   position: fixed;
   bottom: 5dvb;
+}
+
+.Unselectable {
   pointer-events: none;
   user-select: none;
   -webkit-user-select: none;

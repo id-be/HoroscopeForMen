@@ -240,8 +240,8 @@
                 "a hornet's nest",
                 "a spider",
                 "an ant colony",
-                "daddy long legs",
-                "moth"
+                "a daddy long legs",
+                "a moth"
             ]
         }
 
@@ -342,6 +342,22 @@
             "$hunting": [
                 "hunting",
                 "fishing"
+            ]
+        }
+    ],
+    [
+        "$meeting $destiny.",
+        {
+            "$meeting": [
+                "Prepare for",
+                "You will soon have",
+                "Get ready for",
+                "Expect"
+            ],
+            "$destiny": [
+                "a meeting with destiny.",
+                "a new direction in life."
+
             ]
         }
     ]
